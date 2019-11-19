@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS `Intg_LA_GetPromoSummary`;
 DELIMITER //
 
-CREATE DEFINER=`NPHPAdmin`@`%` PROCEDURE `Intg_LA_GetPromoSummary`(
+CREATE DEFINER=`NPHP_admin`@`%` PROCEDURE `Intg_LA_GetPromoSummary`(
 	IN winlostdate DATE
 )
 /*

@@ -4,19 +4,19 @@ DELIMITER //
 CREATE DEFINER=`NPHP_admin`@`%` PROCEDURE `Intg_LA_GetPromoSummary`(
 	IN winlostdate DATE
 )
-/*
-	Creator: Bobby@20191119
-	Parameters Explanation:
-		- winlostdate DATE: The day to receive the summary report data
-		
-	Revisions:
-		- 20191119@Bobby:  Generate SUM data fro LA reporting [RedmineID: #119417]
-	
-*/
 SQL SECURITY DEFINER
 BEGIN
-	DECLARE winlostdateEnd DATE;
-    
+	/*
+		Creator: Bobby@20191119
+		Parameters Explanation:
+			- winlostdate DATE: The day to receive the summary report data
+			
+		Revisions:
+			- 20191119@Bobby:  Generate SUM data fro LA reporting [RedmineID: #119417]
+		
+	*/
+	
+	DECLARE winlostdateEnd DATE;    
     SET winlostdateEnd = DATE_ADD(winlostdate, INTERVAL 1 DAY);
         
 	select p.PromoID

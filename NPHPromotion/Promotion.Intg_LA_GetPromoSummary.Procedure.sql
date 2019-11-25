@@ -1,8 +1,8 @@
-DROP PROCEDURE IF EXISTS `Intg_LA_GetPromoSummary`;
+DROP PROCEDURE IF EXISTS `Promotion.Intg_LA_GetPromoSummary`;
 DELIMITER //
 
-CREATE DEFINER=`NPHP_admin`@`%` PROCEDURE `Intg_LA_GetPromoSummary`(
-	IN winlostdate DATE
+CREATE DEFINER=`NPHP_admin`@`%` PROCEDURE `Promotion.Intg_LA_GetPromoSummary`(
+	IN Winlostdate DATE
 )
 SQL SECURITY DEFINER
 BEGIN
@@ -15,11 +15,8 @@ BEGIN
 			- 20191119@Bobby:  Generate SUM data fro LA reporting [RedmineID: #119417]
 		
 	*/
-	
-	DECLARE winlostdateEnd DATE;    
-    SET winlostdateEnd = DATE_ADD(winlostdate, INTERVAL 1 DAY);
-        
-	select p.PromoID
+	       
+	SELECT p.PromoID
 		,p.StartDate
 		,p.EndDate
 		,p.OffPeakStartTime
@@ -31,11 +28,11 @@ BEGIN
         ,CONVERT(ADDTIME(c.CreateTime, '12:00:00'), DATE) AS CouponDateGMT
 		,COUNT(c.couponID) AS CouponCount
 		,SUM(c.Redeemed) AS RedemptionCount
-		,SUM(c.prize) AS RedemptionPrize
-	from Promotion.NPHPromotion AS p
-	left join Promotion.NPHPromoCoupon c ON p.PromoID = c.PromoID AND c.PromoDay = winlostdate
-	where winlostdate >= p.startDate AND winlostdate <= p.enddate
-	group by p.PromoID
+		,SUM(CASE WHEN c.Redeemed = 1 THEN c.Prize ELSE 0 END) AS RedemptionPrize
+	FROM Promotion.NPHPromotion AS p
+	LEFT JOIN Promotion.NPHPromoCoupon c ON p.PromoID = c.PromoID AND c.PromoDay = Winlostdate
+	WHERE Winlostdate >= p.StartDate AND Winlostdate <= p.EndDate
+	GROUP BY p.PromoID
 		,p.StartDate
 		,p.EndDate
 		,p.OffPeakStartTime
@@ -49,4 +46,4 @@ END;
 
 //
 DELIMITER ;
-GRANT EXECUTE ON PROCEDURE Intg_LA_GetPromoSummary TO 'sqlLink'@'%';
+GRANT EXECUTE ON PROCEDURE Promotion.Intg_LA_GetPromoSummary TO 'sqlLink'@'%';

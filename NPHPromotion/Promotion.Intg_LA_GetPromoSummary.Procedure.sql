@@ -23,7 +23,7 @@ BEGIN
 		,p.OffPeakEndTime
 		,c.CustID
 		,c.CurrencyID
-        ,CONVERT(c.CreateTime, DATE) AS CouponDate
+        ,c.PromoDay AS CouponDate
         ,8 AS CouponTimeZone 
         ,CONVERT(ADDTIME(c.CreateTime, '12:00:00'), DATE) AS CouponDateGMT
 		,COUNT(c.couponID) AS CouponCount

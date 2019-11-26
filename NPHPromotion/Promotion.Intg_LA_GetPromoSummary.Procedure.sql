@@ -29,8 +29,8 @@ BEGIN
 		,COUNT(c.couponID) AS CouponCount
 		,SUM(c.Redeemed) AS RedemptionCount
 		,SUM(CASE WHEN c.Redeemed = 1 THEN c.Prize ELSE 0 END) AS RedemptionPrize
-	FROM Promotion.NPHPromotion AS p
-	LEFT JOIN Promotion.NPHPromoCoupon c ON p.PromoID = c.PromoID AND c.PromoDay = Winlostdate
+	FROM NPHPromotion AS p
+	LEFT JOIN NPHPromoCoupon c ON p.PromoID = c.PromoID AND c.PromoDay = Winlostdate
 	WHERE Winlostdate >= p.StartDate AND Winlostdate <= p.EndDate
 	GROUP BY p.PromoID
 		,p.StartDate

@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `Promotion.Intg_LA_GetPromoSummary`;
+DROP PROCEDURE IF EXISTS Promotion.Intg_LA_GetPromoSummary;
 DELIMITER //
 
-CREATE DEFINER=`NPHP_admin`@`%` PROCEDURE `Promotion.Intg_LA_GetPromoSummary`(
+CREATE DEFINER=`NPHP_admin`@`%` PROCEDURE Promotion.Intg_LA_GetPromoSummary(
 	IN Winlostdate DATE
 )
 SQL SECURITY DEFINER

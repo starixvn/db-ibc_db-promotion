@@ -27,7 +27,7 @@ BEGIN
 		, SUM(CASE WHEN pc.CouponID > 0 THEN 1 ELSE 0 END) AS CouponCount
 	FROM Promotion.NPHPromotion p
 	INNER JOIN Promotion.NPHPromoCurrSetting cs	ON cs.PromoID = p.PromoId
-	LEFT JOIN Promotion.NPHPromoCoupon pc ON p.PromoID = pc.PromoId AND cs.CurrencyID = pc.CurrencyID
+	LEFT JOIN Promotion.NPHPromoCoupon pc ON p.PromoID = pc.PromoId AND cs.CurrencyID = pc.CurrencyID AND cs.PrizeSort = pc.PrizeSort
 	WHERE FromDate BETWEEN p.StartDate AND p.EndDate OR ToDate BETWEEN p.StartDate AND p.EndDate
 	GROUP BY p.PromoId
 		, p.StartDate

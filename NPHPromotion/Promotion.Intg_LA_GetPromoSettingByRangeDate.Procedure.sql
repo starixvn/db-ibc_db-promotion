@@ -28,7 +28,7 @@ BEGIN
 	FROM Promotion.NPHPromotion p
 	INNER JOIN Promotion.NPHPromoCurrSetting cs	ON cs.PromoID = p.PromoId
 	LEFT JOIN Promotion.NPHPromoCoupon pc ON cs.PromoID = p.PromoId	AND cs.CurrencyID = pc.CurrencyID
-	WHERE FromDate >= p.StartDate AND ToDate <= p.EndDate
+	WHERE FromDate BETWEEN p.StartDate AND p.EndDate OR ToDate BETWEEN p.StartDate AND p.EndDate
 	GROUP BY p.PromoId
 		, p.StartDate
 		, p.EndDate
